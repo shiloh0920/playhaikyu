@@ -1,7 +1,15 @@
-package playhaikyu.user.entity;
+package playhaikyu.user.vo;
 
-import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.sql.Date;
 
@@ -11,20 +19,24 @@ public class UserVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //使用者編號
+    private Long id; // 會員編號
 
-    private String name; //使用者名稱
+    private String name; // 會員名稱
 
-    private String mima; //使用者qassworb
+    private String mima; // 會員qassworb
 
-    private String email; //使用者信箱
+    private String email; // 會員信箱
 
     @CreationTimestamp
-    @Column(name="user_datetime", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, updatable = false, insertable = false)
-    private Date userregidate;
+    @Column(name = "user_datetime", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, updatable = false, insertable = false)
+    private Date userregidate; // 會員註冊信箱
 
-    private Integer role; //使用者權限
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Integer role; // 會員權限
 
+    @Column(name = "reset_mima_token")
+    private String resetMimaToken;
 
     // getters and setters
 
